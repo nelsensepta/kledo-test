@@ -51,6 +51,11 @@ export default function SideBar() {
   };
   return (
     <div className="flex w-2/12 flex-col justify-between items-start">
+      {resError !== null && (
+        <div className="  bg-red-500 p-4 w-1/2 rounded-xl">
+          <p className="text-white text-center p">{resError}</p>
+        </div>
+      )}
       <div className="flex justify-start items-start flex-col mt-10 w-full">
         <NavLink
           to="/dashboard"

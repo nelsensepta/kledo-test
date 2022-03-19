@@ -14,7 +14,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/shipping" element={<Shipping />} />
       <Route path="/shipping/tambah" element={<ShippingTambah />} />
-      <Route path="/shipping/edit/:id" element={<ShippingEdit />} />
+      <Route path="/shipping/edit/:id/:name" element={<ShippingEdit />} />
       <Route path="/" element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

@@ -6,17 +6,18 @@ import { useSelector } from "react-redux";
 import SideBar from "../../components/layout/SideBar";
 import { useMutation } from "react-query";
 export default function ShippingTambah() {
+  let location = useLocation();
+  let navigate = useNavigate();
+  let params = useParams();
+  console.log(params, navigate, location);
   const { token } = useSelector((state) => state.user);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: { name: "test" },
+    defaultValues: { name: params.name },
   });
-  let location = useLocation();
-  let navigate = useNavigate();
-  let params = useParams();
 
   let from = location.state?.from?.pathname || "/shipping";
   const [resError, setResError] = useState(null);

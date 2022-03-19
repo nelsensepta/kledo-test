@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { data } from "autoprefixer";
 export default function Shipping() {
   const [getResult, setGetResult] = useState(null);
   const [resError, setResError] = useState(null);
@@ -34,34 +33,25 @@ export default function Shipping() {
 
   useEffect(() => {
     try {
-      getAll();
+      return getAll();
     } catch (err) {
       return setResError(err);
     }
   }, [getAll]);
-  const handleChange = async (value) => {
-    setSearchVal(value);
-    if (searchVal !== "" && getResult.length !== 0) {
-      setFiltered(
-        getResult.filter((item) => {
-          return item.name.toLowerCase().includes(searchVal.toLowerCase());
-        })
-      );
-    } else {
-      setFiltered(getResult);
+  useEffect(() => {
+    if (!isLoading) {
+      if (searchVal !== "" && getResult.length !== 0) {
+        setFiltered(
+          getResult.filter((item) => {
+            return item.name.toLowerCase().includes(searchVal.toLowerCase());
+          })
+        );
+      } else {
+        setFiltered(getResult);
+      }
     }
-  };
-
-  // useEffect(() => {
-  //   handleChange();
-  // }, [getResult]);
-  // console.log(getResult.data);
-
-  // const fillShip = getResult.data.filter((item) =>
-  //   item.name.toLowerCase().includes(searchVal.toLowerCase())
-  // );
-
-  // setgetResult.data(fillShip);
+  }, [getResult, searchVal]);
+  // const handleChange = async () => {};
 
   return (
     <div className="flex mt-10 min-h-full">
@@ -120,7 +110,7 @@ export default function Shipping() {
                   type="text"
                   className=" rounded-lg focus:ring-primary block w-full pl-10 p-2.5 ring-2 ring-black "
                   placeholder="cari"
-                  onChange={(e) => handleChange(e.target.value)}
+                  onChange={(e) => setSearchVal(e.target.value)}
                 />
               </div>
             </div>
@@ -148,7 +138,7 @@ export default function Shipping() {
                                 <tr className="hover:bg-gray-100" key={item.id}>
                                   <td className="py-4 px-6 text-sm font-medium text-gray-900  whitespace-nowrap">
                                     <Link
-                                      to={`/shipping/edit/${item.id}`}
+                                      to={`/shipping/edit/${item.id}/${item.name}`}
                                       className="flex w-full"
                                     >
                                       {item.name}
